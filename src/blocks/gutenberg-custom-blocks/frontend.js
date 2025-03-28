@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const fetchBtn = document.querySelector('.books-list-load-handler');
-	const booksListContainer = document.querySelector('.books-list-container');
-console.log(fetchBtn)
+	const fetchBtn = document.querySelector('.js-fetch-btn');
+	const booksListContainer = document.querySelector('.js-books-list');
+
 	fetchBtn.addEventListener('click', async () => {
 		booksListContainer.innerHTML = '';
 		await fetch(`/wp-json/custom-plugin/v1/books`)
@@ -12,6 +12,7 @@ console.log(fetchBtn)
 
 	function renderBooks(data) {
 		data.forEach(book => {
+			console.log(book);
 			const li = document.createElement('li');
 			li.innerHTML = `<strong>${book.title}</strong> - ${book.author} - ${book.date}`;
 			booksListContainer.appendChild(li)

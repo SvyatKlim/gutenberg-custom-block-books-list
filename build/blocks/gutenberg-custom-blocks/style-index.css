@@ -7,10 +7,54 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-create-block-gutenberg-custom-blocks {
-  background-color: #21759b;
+.wp-block-custom-block-books-list {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  font-family: Inter, sans-serif;
+  color: #111827;
+  max-width: 600px;
+}
+.wp-block-custom-block-books-list__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+.wp-block-custom-block-books-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.wp-block-custom-block-books-list__item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.95rem;
+}
+.wp-block-custom-block-books-list__item:last-child {
+  border-bottom: none;
+}
+.wp-block-custom-block-books-list__item strong {
+  font-weight: 600;
+  color: #374151;
+}
+.wp-block-custom-block-books-list__btn {
+  background-color: #111827;
   color: #fff;
-  padding: 2px;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1rem;
+}
+@media (hover: hover) {
+  .wp-block-custom-block-books-list__btn:hover {
+    background-color: #1f2937;
+  }
 }
 
 /*# sourceMappingURL=style-index.css.map*/

@@ -8,17 +8,18 @@
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       gutenberg-custom-blocks
+ * Text Domain:       custom-block-books-list
  *
  * @package CreateBlock
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
 require_once plugin_dir_path(__FILE__) . '/src/inc/API.php';
 require_once plugin_dir_path(__FILE__) . '/src/inc/custom-post-types.php';
+require_once plugin_dir_path(__FILE__) . '/src/inc/custom-fields.php';
 
 add_action('plugins_loaded', function () {
 	new BooksAPI\API();
@@ -32,7 +33,32 @@ add_action('plugins_loaded', function () {
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_gutenberg_custom_blocks_block_init() {
-	register_block_type( __DIR__ . "/build/blocks/gutenberg-custom-blocks" );
-}
-add_action( 'init', 'create_block_gutenberg_custom_blocks_block_init' );
+add_action('init', function () {
+	register_block_type(__DIR__ . "/build/blocks/gutenberg-custom-blocks");
+});
+
+register_activation_hook(__FILE__, function () {
+	if (!get_option('my_books_installed')) {
+		$books = [
+			['title' => 'Book One', 'author' => 'Author A', 'date' => '2025-01-01'],
+			['title' => 'Book Two', 'author' => 'Author B', 'date' => '2025-01-01'],
+			['title' => 'Book Three', 'author' => 'Author C', 'date' => '2025-01-01'],
+		];
+
+		foreach ($books as $book) {
+			$post_id = wp_insert_post([
+				'post_type' => 'books',
+				'post_title' => $book['title'],
+				'post_status' => 'publish',
+				'post_date' => $book['date'],
+			]);
+
+			if ($post_id && !is_wp_error($post_id)) {
+				update_post_meta($post_id, 'author', $book['author']);
+			}
+		}
+
+		update_option('my_books_installed', true);
+	}
+});
+
