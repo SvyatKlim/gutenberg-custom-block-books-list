@@ -12,6 +12,10 @@
 		"html": false
 	},
 	"attributes": {
+		"heading" : {
+			"type" : "string",
+			"default" : "Book List"
+		},
 		"books" : {
 			"type" : "array",
 			"default" : []

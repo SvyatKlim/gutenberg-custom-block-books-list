@@ -5,11 +5,11 @@
  */
 import {__} from '@wordpress/i18n';
 
-import {useBlockProps} from '@wordpress/block-editor';
+import {RichText, useBlockProps} from '@wordpress/block-editor';
 import {Button} from "@wordpress/components";
 
 export default function Edit({attributes, setAttributes}) {
-	const {books} = attributes;
+	const {books , heading} = attributes;
 
 	async function fetchBooks() {
 		return await fetch(`/wp-json/custom-plugin/v1/books`)
@@ -21,7 +21,12 @@ export default function Edit({attributes, setAttributes}) {
 	console.log(books)
 	return (
 		<div {...useBlockProps()}>
-			<h2>Books list</h2>
+			<RichText
+				tagName="h2"
+				value={heading}
+				onChange={(newHeading) => setAttributes({ heading: newHeading })}
+				placeholder={__('Enter Heading...', 'custom-block-books-list')}
+			/>
 			<Button onClick={() => fetchBooks()}>
 				Load books
 			</Button>

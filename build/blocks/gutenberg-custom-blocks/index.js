@@ -8,7 +8,7 @@
   \*******************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"custom-block/books-list","version":"0.1.0","title":"Custom Books list","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"books":{"type":"array","default":[]}},"textdomain":"custom-block/books-list","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./frontend.js","render":"file:./render.php"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"custom-block/books-list","version":"0.1.0","title":"Custom Books list","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"heading":{"type":"string","default":"Book List"},"books":{"type":"array","default":[]}},"textdomain":"custom-block/books-list","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./frontend.js","render":"file:./render.php"}');
 
 /***/ }),
 
@@ -44,7 +44,8 @@ function Edit({
   setAttributes
 }) {
   const {
-    books
+    books,
+    heading
   } = attributes;
   async function fetchBooks() {
     return await fetch(`/wp-json/custom-plugin/v1/books`).then(res => res.json()).then(data => setAttributes({
@@ -54,8 +55,13 @@ function Edit({
   console.log(books);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
-      children: "Books list"
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+      tagName: "h2",
+      value: heading,
+      onChange: newHeading => setAttributes({
+        heading: newHeading
+      }),
+      placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Enter Heading...', 'custom-block-books-list')
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
       onClick: () => fetchBooks(),
       children: "Load books"
